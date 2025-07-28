@@ -37,8 +37,8 @@ Pastikan semua persyaratan sistem di bawah ini terpenuhi sebelum melanjutkan ins
 1.  **Clone Repository Ini**
     Buka terminal atau Git Bash, lalu jalankan perintah berikut:
     ```bash
-    git clone [URL_REPOSITORY_ANDA]
-    cd [NAMA_FOLDER_REPOSITORY]
+    git clone https://github.com/theepar/deteksi-keamanan-kendaraan.git
+    cd deteksi-keamanan-kendaraan
     ```
 
 2.  **Buat dan Aktifkan Virtual Environment (Sangat Direkomendasikan)**
