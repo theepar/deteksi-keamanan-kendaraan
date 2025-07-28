@@ -95,7 +95,7 @@ class VideoThread(QThread):
                     driver_status_text = "USER: MENGANTUK" if kantuk_terdeteksi else "USER: Terjaga"
                     color = (0, 255, 255) if kantuk_terdeteksi else (255, 0, 0)
                     cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), color, 2)
-                    cv2.putText(frame, "DRIVER", (xmin, ymin - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2, cv2.LINE_AA)
+                    cv2.putText(frame, "USER", (xmin, ymin - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2, cv2.LINE_AA)
                 elif label in ['GUN', 'PISTOL', 'KNIFE', 'RIFLE', 'WEAPON']:
                     ancaman_terdeteksi = True
                     threat_status_text = "STATUS: ANCAMAN TERDETEKSI!"
