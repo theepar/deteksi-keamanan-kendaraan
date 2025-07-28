@@ -1,0 +1,9 @@
+opencv-python>=4.5.0   # Library utama untuk akses kamera dan pengolahan gambar
+ultralytics>=8.0.0      # YOLO model deteksi objek
+numpy>=1.19.0           # Operasi array dan numerik
+scipy                   # Perhitungan EAR dan operasi numerik
+mediapipe               # Deteksi wajah, landmark, dan drowsiness (pengganti dlib)
+PyQt5                   # GUI dashboard aplikasi
+# winsound: built-in di Windows, tidak perlu install
+# Jika ingin fitur dlib (opsional, tidak wajib), install manual dengan:
+# pip install .\dlib-19.22.99-cp310-cp310-win_amd64.whl
