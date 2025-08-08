@@ -13,12 +13,10 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWid
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 
-# ==============================================================================
-# 1. THREAD UNTUK PROSES AI
-# ==============================================================================
+
 class VideoThread(QThread):
     change_pixmap_signal = pyqtSignal(np.ndarray)
-    update_status_signal = pyqtSignal(list)  # list of dict: [{'user': n, 'kantuk': bool, 'ancaman': bool}]
+    update_status_signal = pyqtSignal(list)  
 
     def run(self):
         self.running = True
@@ -36,7 +34,7 @@ class VideoThread(QThread):
         face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=5, refine_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
         print("THREAD: Model loading completed.")
 
-        CONFIDENCE_THRESHOLD, EAR_THRESHOLD, EAR_CONSEC_FRAMES = 0.5, 0.23, 10  # Lebih cepat deteksi kantuk
+        CONFIDENCE_THRESHOLD, EAR_THRESHOLD, EAR_CONSEC_FRAMES = 0.5, 0.23, 10  # deteksi kantuk
         drowsiness_counters = {}  # per user idx
 
         def eye_aspect_ratio_mp(eye):
@@ -56,7 +54,6 @@ class VideoThread(QThread):
         alarm_kantuk_on, alarm_ancaman_on = False, False
 
         def iou(boxA, boxB):
-            # box: (xmin, ymin, xmax, ymax)
             xA = max(boxA[0], boxB[0])
             yA = max(boxA[1], boxB[1])
             xB = min(boxA[2], boxB[2])
@@ -68,7 +65,6 @@ class VideoThread(QThread):
             return iou
 
         def merge_person_boxes(detections, iou_threshold=0.5):
-            # detections: [{'box': (xmin, ymin, xmax, ymax), 'label': label}]
             person_boxes = [d['box'] for d in detections if d['label'] == 'PERSON']
             merged = []
             used = [False] * len(person_boxes)
@@ -179,9 +175,7 @@ class VideoThread(QThread):
         self.running = False
         self.wait()
 
-# ==============================================================================
-# 2. KELAS UTAMA UNTUK GUI APLIKASI
-# ==============================================================================
+
 class App(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -284,9 +278,7 @@ class App(QMainWindow):
         convert_to_Qt_format = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
         return QPixmap.fromImage(convert_to_Qt_format)
 
-# ==============================================================================
-# 3. JALANKAN APLIKASI
-# ==============================================================================
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     a = App()
